@@ -3,21 +3,33 @@
 
 #include "Filter.h"
 #include "EmailFilter.h"
+#include "FileWriter.h"
+#include "Grafo.h"
 
 class AnaliserController
 {
 private:
 	std::list<std::string> emailPaths;
-	std::list<LineAdjEmails> adjEmails;
+	EmailFilter emailF;
+	Grafo *graf;
 
+	std::vector<std::string> findUniqueEmails(std::list<LineAdjEmails> &adjEmails);
 	AnaliserController();
-	void findAdjEmails();
 public:
-	~AnaliserController();
-
 	static AnaliserController &createController();
+	~AnaliserController();
+	
 	bool findEmailsPaths(std::string directory);
-	void createGraf();
+	std::list<LineAdjEmails> AnaliserController::findAdjEmails();
+	int createGraf(std::list<LineAdjEmails> adjEmails);
+	void criaAdjacencia(int i, int j, int P);
+	void removeAdjacencia(int i, int j);
+	void imprimeAdjacencias();
+	void setaInformacao(int i, std::string rotulo);
+	int adjacentes(int i); // Ficar esperto com esse método aq. Passo parametros diferentes pra controller e pro grafo em si.
+	/*
+	Agora é só ir colocando as funções do grafo aq, que dai essa classe delega pro grafo fazer.
+	*/
 };
 
 #endif

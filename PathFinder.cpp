@@ -10,7 +10,12 @@ std::list<std::string> PathFinder::findPossiblePaths(std::string directory)
 	if (dir != NULL)
 	{
 		while ((dirEnt = readdir(dir)) != NULL)
-			possiblePaths.push_back(directory + dirEnt->d_name + '\\');
+		{
+			if (dirEnt->d_type == DT_DIR)
+				possiblePaths.push_back(directory + dirEnt->d_name + '\\');
+			else
+				possiblePaths.push_back(directory + dirEnt->d_name);
+		}
 
 		closedir(dir);
 	}

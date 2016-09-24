@@ -21,8 +21,9 @@ std::list<std::string> FileReader::fileRead(std::string filePath)
 			file >> aux;
 			fileWords.push_back(aux);
 		}
+		file.close();
 	}
 	else
-		std::cout << "Erro ao abrir arquivo: " << filePath;
+		std::cout << "Error opening the file: " << filePath;
 	return fileWords;
 }
