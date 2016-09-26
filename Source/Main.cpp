@@ -11,6 +11,7 @@ void main()
 
 	setlocale(LC_ALL, "");
 
+
 	if (controller.findEmailsPaths(MAIN_PATH))
 	{
 		std::list<LineAdjEmails> adjEmails;
@@ -27,11 +28,9 @@ void main()
 			int i, j, P;
 			std::string rotulo;
 			std::cout << "\t1 - Imprime Adjacências" << std::endl
-					<< "\t2 - Seta Informação" << std::endl 
-					<< "\t3 - Número de Adjacentes" << std::endl 
-					<< "\t4 - Sair" << std::endl 
+					<< "\t2 - Número de Adjacentes" << std::endl 
+					<< "\t3 - Sair" << std::endl 
 					<< "Escolha uma opção:" << std::endl;
-
 			std::cin >> option;
 			switch (option)
 			{
@@ -43,19 +42,6 @@ void main()
 				break;
 
 			case '2':
-				std::cout << "De qual Nó você quer mudar o rótulo:" << std::endl;
-				std::cin >> i;
-				while (i < 0 || i >= grafSize)
-				{
-					std::cout << "Opção incorreta. Escolha outra:" << std::endl;
-					std::cin >> i;
-				}
-				std::cout << "Qual o rótulo a ser colocado:" << std::endl;
-				std::cin >> rotulo;
-				controller.setaInformacao(i, rotulo);
-				break;
-
-			case '3':
 				std::cout << "De qual Nó você quer saber as adjacências:" << std::endl;
 				std::cin >> i;
 				while (i < 0 || i >= grafSize)
@@ -67,7 +53,7 @@ void main()
 				std::cout << "Número de Adjacências = " << j << std::endl << std::endl;
 				break;
 
-			case '4':
+			case '3':
 				std::cout << "Até logo !" << std::endl;
 				break;
 
@@ -75,8 +61,10 @@ void main()
 				std::cout << "Opção incorreta !" << std::endl;
 				break;
 			}
-		} while (option != '4');
+		} while (option != '3');
 	}
 	else
 		std::cout << "It was not possible to build the graf. Terminanting operation." << std::endl;
+
+	
 }
