@@ -2,7 +2,7 @@
 #define FILE_FINDER
 
 #include <list>
-#include <dirent.h>
+#include "dirent.h"
 #include <iostream>
 #include <string>
 

@@ -19,6 +19,21 @@ AnaliserController::~AnaliserController()
 {
 }
 
+std::list<std::string> AnaliserController::get_emailPaths()
+{
+	return this->emailPaths;
+}
+
+EmailFilter AnaliserController::get_emailfilter()
+{
+	return this->emailF;
+}
+
+Grafo* AnaliserController::get_graph()
+{
+	return this->graf;
+}
+
 bool AnaliserController::findEmailsPaths(std::string directory)
 {
 	Filter filter(PathFinder::findPossiblePaths(directory));
@@ -36,15 +51,21 @@ std::list<LineAdjEmails> AnaliserController::findAdjEmails()
 int AnaliserController::createGraf(std::list<LineAdjEmails> adjEmails)
 {
 	std::vector<std::string> uniqueEmails;
-
+	
 	uniqueEmails = findUniqueEmails(adjEmails);
-	graf = &Grafo::Grafo(uniqueEmails.size());
+	this->graf = new Grafo(uniqueEmails.size());
 
 	FileWriter::fileWrite(adjEmails); // Just for debuging purposes
+	int From, To;
+
 	for (int i = 0; i < (signed)uniqueEmails.size(); i++)
-		graf->seta_informacao(i, uniqueEmails[i]);
+		this->graf->seta_informacao(i, uniqueEmails[i]);
 	for (std::list<LineAdjEmails>::iterator it = adjEmails.begin(); it != adjEmails.end(); it++)
-		graf->cria_adjacencia(std::find(uniqueEmails.begin(), uniqueEmails.end(), it->from)-uniqueEmails.begin(), std::find(uniqueEmails.begin(), uniqueEmails.end(), it->to) - uniqueEmails.begin(), it->weight);
+	{
+		From = std::find(uniqueEmails.begin(), uniqueEmails.end(), it->from) - uniqueEmails.begin();
+		To = std::find(uniqueEmails.begin(), uniqueEmails.end(), it->to) - uniqueEmails.begin();
+		this->graf->cria_adjacencia(From, To, it->weight);
+	}		
 	return uniqueEmails.size();
 }
 

@@ -44,16 +44,24 @@ void Grafo::remove_adjacencia(int i, int j)
 
 void Grafo::imprime_adjacencias()
 {
-	int i, j;
-
+	int i, j, Vertice, Peso;
 	for (i = 0; i < this->tamanho; i++)
 	{
+		std::cout << "Adjacentes ao vertice " << i << ":" << std::endl;
 		for (j = 0; j < this->tamanho; j++)
 		{
-			if(!this->lista[i].vazia() && this->lista[i].busca(j))
-				std::cout << " " << this->lista[i].retornaValorElemento(j);
-			else
-				std::cout << " " << INFINITO;
+			if (this->lista[i].vazia())
+			{
+				break;
+			}
+			if (this->lista[i].busca(j))
+			{
+				Vertice = this->lista[i].retornaVertice(j);
+				Peso = this->lista[i].retornaPeso(j);
+				std::cout << "| " << Vertice << "/" << Peso << " |   ";
+			}
+				
+			
 		}
 		std::cout << std::endl;
 	}
@@ -99,4 +107,51 @@ int Grafo::adjacentes(int i, int *adj)
 	{
 		return 0;
 	}
+}
+
+int Grafo::num_vertices()
+{
+	return this->tamanho;
+}
+
+int Grafo::num_arestas()
+{
+	int i, j, num_arestas = 0;
+	for (i = 0; i < this->tamanho; i++)
+	{
+		for (j = 0; j < this->tamanho; j++)
+		{
+			if (!this->lista[i].vazia() && this->lista[i].busca(j))
+			{
+				num_arestas++;
+			}
+
+		}
+	}
+	return num_arestas;
+}
+
+int Grafo::maior_grau_saida()
+{
+	return 0;
+}
+
+int Grafo::maior_grau_entrada()
+{
+	return 0;
+}
+
+Lista * Grafo::depth_search(int X, int Y)
+{
+	return nullptr;
+}
+
+Lista * Grafo::width_search(int X, int Y)
+{
+	return nullptr;
+}
+
+Lista * Grafo::vertices_distantes(int distancia)
+{
+	return nullptr;
 }

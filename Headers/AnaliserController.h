@@ -18,6 +18,11 @@ private:
 public:
 	static AnaliserController &createController();
 	~AnaliserController();
+
+	//getters
+	std::list<std::string> get_emailPaths();
+	EmailFilter get_emailfilter();
+	Grafo* get_graph();
 	
 	bool findEmailsPaths(std::string directory);
 	std::list<LineAdjEmails> AnaliserController::findAdjEmails();

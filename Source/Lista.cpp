@@ -2,14 +2,14 @@
 
 No::No(int elemento)
 {
-	this->dado = elemento;
+	this->vertice = elemento;
 	this->proximo = NULL;
 }
 
 No::No(int elemento, int valor)
 {
-	dado = elemento;
-	this->valor = valor;
+	this->vertice = elemento;
+	this->peso = valor;
 	proximo = NULL;
 }
 
@@ -17,14 +17,14 @@ No::~No()
 {
 }
 
-int No::retorna_dado()
+int No::retorna_vertice()
 {
-	return this->dado;
+	return this->vertice;
 }
 
-int No::retorna_valor()
+int No::retorna_peso()
 {
-	return this->valor;
+	return this->peso;
 }
 
 No * No::retorna_proximo()
@@ -61,7 +61,7 @@ No *No::insere_depois(int elemento)
 
 	 while (p != NULL)
 	 {
-		 cout << " " << p->dado;
+		 cout << " " << p->vertice;
 		 p = p->proximo;
 	 }
 
@@ -74,12 +74,13 @@ No *No::insere_depois(int elemento)
 
 	 if (this->proximo == NULL)
 	 {
-		 cout << "Não há nó para ser retirado. Retorno setado em 0" << endl;
+
+		 throw std::runtime_error("Não há nó para ser retirado. Retorno setado em 0");
 		 return 0;
 	 }
 	 else
 	 {
-		 aux = this->proximo->dado;
+		 aux = this->proximo->vertice;
 		 this->proximo = this->proximo->proximo;
 
 		 return aux;
@@ -120,7 +121,7 @@ No *No::insere_depois(int elemento)
 	 q = this;
 	 p = p->proximo;
 
-	 while(elemento > p->dado)
+	 while(elemento > p->vertice)
 	 {
 		 q = p;
 		 p = p->proximo;
@@ -155,9 +156,9 @@ No *No::insere_depois(int elemento)
  {
 	 No *p = this->primeiro;
 
-	 while (elemento != p->retorna_dado())
+	 while (elemento != p->retorna_vertice())
 	 {
-		 if (p->retorna_dado() > elemento || p == this->ultimo)
+		 if (p->retorna_vertice() > elemento || p == this->ultimo)
 			 return false;
 
 		 p = p->retorna_proximo();
@@ -168,7 +169,7 @@ No *No::insere_depois(int elemento)
 
 int Lista::ultimo_elemento()
 {
-	return this->ultimo->retorna_dado();
+	return this->ultimo->retorna_vertice();
 }
 
 void Lista::insere_primeiro(int elemento, int valor)
@@ -203,7 +204,7 @@ void Lista::mostra_lista()
 {
 	if (this->vazia() == true)
 	{
-		cout << "Lista vazia." << endl;
+		throw std::runtime_error("Lista vazia !!");
 	}
 	else
 	{
@@ -217,7 +218,7 @@ int Lista::retira_ultimo()
 
 	if (this->vazia() == true)
 	{
-		cout << "Lista Vazia !!! Retorno setado como 0" << endl;
+		throw std::runtime_error("Lista vazia !! retorno setado como 0");
 		return 0;
 	}
 	else
@@ -242,7 +243,7 @@ int Lista::retira_primeiro()
 {
 	if (this->vazia() == true)
 	{
-		//cout << "Lista Vazia !!! Retorno setado como 0" << endl;
+		throw std::runtime_error("Lista vazia !! retorno setado como 0");
 		return 0;
 	}
 	else
@@ -264,11 +265,11 @@ void Lista::insere_ordenado(int elemento, int valor)
 	{
 		this->insere_primeiro(elemento, valor);
 	}
-	else if (elemento < this->primeiro->retorna_dado())
+	else if (elemento < this->primeiro->retorna_vertice())
 	{
 		this->insere_primeiro(elemento, valor);
 	}
-	else if (elemento >= this->ultimo->retorna_dado())
+	else if (elemento >= this->ultimo->retorna_vertice())
 	{
 		this->insere_ultimo(elemento, valor);
 	}
@@ -288,9 +289,9 @@ bool Lista::retiraEscolha(int elemento)
 	{
 		No *p = this->primeiro, *q = NULL;
 
-		while (elemento != p->retorna_dado())
+		while (elemento != p->retorna_vertice())
 		{
-			if (p->retorna_dado() > elemento || p == this->ultimo)
+			if (p->retorna_vertice() > elemento || p == this->ultimo)
 				return false;
 
 			q = p;
@@ -315,14 +316,26 @@ bool Lista::retiraEscolha(int elemento)
 	}
 }
 
-int Lista::retornaValorElemento(int elemento)
+int Lista::retornaPeso(int elemento)
 {
 	No *p = this->primeiro;
 
-	while (elemento != p->retorna_dado())
+	while (elemento != p->retorna_vertice())
 	{
 		p = p->retorna_proximo();
 	}
 
-	return p->retorna_valor();
+	return p->retorna_peso();
+}
+
+int Lista::retornaVertice(int elemento)
+{
+	No *p = this->primeiro;
+
+	while (elemento != p->retorna_vertice())
+	{
+		p = p->retorna_proximo();
+	}
+
+	return p->retorna_vertice();
 }

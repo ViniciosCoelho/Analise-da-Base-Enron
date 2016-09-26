@@ -10,16 +10,16 @@ class No
 {
 private:
 	No *proximo;
-	int dado;
-	int valor;
+	int vertice;
+	int peso;
 
 public:
 	No(int elemento);
 	No(int elemento, int valor);
 	~No();
 
-	int retorna_dado();
-	int retorna_valor();
+	int retorna_vertice();
+	int retorna_peso();
 	No *retorna_proximo();
 	void insere_proximo(No * proximo);
 	No *insere_depois(int elemento);
@@ -51,5 +51,6 @@ public:
 	int retira_ultimo(); // Retira o último elemento da Lista e retorna a informação do Nó
 	void insere_ordenado(int elemento, int valor); // Insere o elemento info de maneira ordenada na lista
 	bool retiraEscolha(int elemento);
-	int retornaValorElemento(int elemento);
+	int retornaPeso(int elemento);
+	int retornaVertice(int elemento);
 };
