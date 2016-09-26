@@ -47,7 +47,11 @@ void Grafo::imprime_adjacencias()
 	int i, j, Vertice, Peso;
 	for (i = 0; i < this->tamanho; i++)
 	{
-		std::cout << "Adjacentes ao vertice " << i << ":" << std::endl;
+		if (!this->lista[i].vazia())
+		{
+			std::cout << std::endl;
+			std::cout << "Adjacentes ao vertice " << i << ":" << std::endl;
+		}
 		for (j = 0; j < this->tamanho; j++)
 		{
 			if (this->lista[i].vazia())
@@ -63,8 +67,27 @@ void Grafo::imprime_adjacencias()
 				
 			
 		}
-		std::cout << std::endl;
+		if (!this->lista[i].vazia())
+		{
+			std::cout << std::endl;
+		}
 	}
+
+	std::cout << std::endl;
+
+	std::cout << "Vertices sem adjacência: " << std::endl;
+	for (i = 0; i < this->tamanho; i++)
+	{
+		if (this->lista[i].vazia())
+		{
+			std::cout << i << "  ";
+		}
+
+	}
+
+	std::cout << std::endl;
+	std::cout << std::endl;
+	std::cout << std::endl;
 	std::cout << std::endl;
 }
 

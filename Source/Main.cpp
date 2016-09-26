@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <locale.h>
 #include "Filter.h"
 #include "AnaliserController.h"
 #include "CorrectPath.h"
@@ -7,6 +8,8 @@
 void main()
 {
 	AnaliserController & controller = AnaliserController::createController(); // It's a singleton.
+
+	setlocale(LC_ALL, "");
 
 	if (controller.findEmailsPaths(MAIN_PATH))
 	{
@@ -23,8 +26,8 @@ void main()
 		{
 			int i, j, P;
 			std::string rotulo;
-			std::cout << "\t1 - Imprime Adjacencias" << std::endl
-					<< "\t2 - Seta Informacao" << std::endl 
+			std::cout << "\t1 - Imprime Adjacências" << std::endl
+					<< "\t2 - Seta Informação" << std::endl 
 					<< "\t3 - Número de Adjacentes" << std::endl 
 					<< "\t4 - Sair" << std::endl 
 					<< "Escolha uma opção:" << std::endl;
