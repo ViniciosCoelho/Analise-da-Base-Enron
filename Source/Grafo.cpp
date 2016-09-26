@@ -96,7 +96,7 @@ void Grafo::seta_informacao(int i, std::string V)
 	this->vertices[i].recebeNome(V);
 }
 
-int Grafo::adjacentes(int i, int *adj)
+int* Grafo::adjacentes(int i)
 {
 	int numAdj = 0, j, k = 0;
 
@@ -108,7 +108,7 @@ int Grafo::adjacentes(int i, int *adj)
 				numAdj++;
 		}
 
-		adj = new int[numAdj];
+		int* adj = new int[numAdj];
 
 		for (j = 0; j < this->tamanho; j++)
 		{
@@ -119,17 +119,52 @@ int Grafo::adjacentes(int i, int *adj)
 			}
 		}
 
-		std::cout << "Adjacências: ";
-		for (j = 0; j < numAdj; j++)
-			std::cout << adj[j] << " ";
-		std::cout << std::endl;
-
-		return numAdj;
+		return adj;
 	}
 	else
 	{
+		return nullptr;
+	}
+}
+
+int Grafo::numero_adjacentes(int i)
+{
+	int numAdj = 0, j, k = 0;
+
+	if (!this->lista[i].vazia())
+	{
+		for (j = 0; j < this->tamanho; j++)
+		{
+			if (this->lista[i].busca(j))
+				numAdj++;
+		}
+		return numAdj++;
+	}
+	else
+	{
+
 		return 0;
 	}
+}
+
+void Grafo::imprime_adjacencias(int numAdj, int* adj)
+{
+	std::cout << "Adjacências: ";
+	for (int j = 0; j < numAdj; j++)
+		std::cout << adj[j] << " ";
+	std::cout << std::endl;
+}
+
+bool Grafo::existe_vertice(std::vector<int> vetor_vertices, int vert)
+{
+	for (int i = 0; i < vetor_vertices.size(); i++)
+	{
+		if (vetor_vertices[i] == vert)
+		{
+			return true;
+		}
+	}
+	return false;
 }
 
 int Grafo::num_vertices()
@@ -137,22 +172,7 @@ int Grafo::num_vertices()
 	return this->tamanho;
 }
 
-int Grafo::num_arestas()
-{
-	int i, j, num_arestas = 0;
-	for (i = 0; i < this->tamanho; i++)
-	{
-		for (j = 0; j < this->tamanho; j++)
-		{
-			if (!this->lista[i].vazia() && this->lista[i].busca(j))
-			{
-				num_arestas++;
-			}
 
-		}
-	}
-	return num_arestas;
-}
 
 int Grafo::maior_grau_saida()
 {
@@ -164,14 +184,67 @@ int Grafo::maior_grau_entrada()
 	return 0;
 }
 
-Lista * Grafo::depth_search(int X, int Y)
+
+
+bool Grafo::depth_search(int X, int Y, int count, std::vector<int> & Visitados)
 {
-	return nullptr;
+	
+	int* adj = nullptr;
+	int num_adj;
+	count++;
+	if (count > 50)
+	{
+		Visitados.clear();
+		return false;
+	}
+	if (X == Y)
+	{
+		Visitados.push_back(X);
+		return true;
+	}
+	else
+	{
+		if (!(Grafo::existe_vertice(Visitados, X)))
+		{
+			Visitados.push_back(X);
+			num_adj = this->numero_adjacentes(X);
+			adj = this->adjacentes(X);
+			for (int i = 0; i < num_adj; i++)
+			{
+				if (bool x = depth_search(adj[i], Y, count, Visitados))
+				{
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
 }
 
-Lista * Grafo::width_search(int X, int Y)
+bool Grafo::width_search(int Y, std::vector<int>& Visitados, std::queue<int> Q)
 {
-	return nullptr;
+	int x;
+	if (Q.empty)
+	{
+		throw std::exception("destino não existe !!");
+		return false;
+	}
+	else
+	{
+		x = Q.pop;
+		//visite(x);
+	}
+
+	if (x == Y)
+	{
+		return true;
+	}
+	else
+	{
+
+	}
+	return false;
 }
 
 Lista * Grafo::vertices_distantes(int distancia)

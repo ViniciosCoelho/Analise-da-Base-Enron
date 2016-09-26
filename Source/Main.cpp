@@ -21,8 +21,18 @@ void main()
 		std::cout << "Processing emails. Please wait..." << std::endl;
 		adjEmails = controller.findAdjEmails();
 		std::cout << "Creating graph. Please wait..." << std::endl;
-		grafSize = controller.createGraf(adjEmails);	// 1)
+//		grafSize = controller.createGraf(adjEmails);	// 1)
+		Grafo* G = new Grafo(7);
+		G->cria_adjacencia(0, 1, 120);
+		G->cria_adjacencia(0, 2, 140);
+		G->cria_adjacencia(1, 3, 145);
+		G->cria_adjacencia(1, 4, 152);
+		G->cria_adjacencia(2, 5, 125);
+		G->cria_adjacencia(2, 6, 512);
 		std::cout << "Graph is now usable!" << std::endl;
+		std::vector<int> V;
+		G->depth_search(0, 7, -1, V);
+		//controller.get_graph()->depth_search(0,4,-1,V);
 		do
 		{
 			int i, j, P;
@@ -42,15 +52,7 @@ void main()
 				break;
 
 			case '2':
-				std::cout << "De qual Nó você quer saber as adjacências:" << std::endl;
-				std::cin >> i;
-				while (i < 0 || i >= grafSize)
-				{
-					std::cout << "Opção incorreta. Escolha outra:" << std::endl;
-					std::cin >> i;
-				}
-				j = controller.adjacentes(i);
-				std::cout << "Número de Adjacências = " << j << std::endl << std::endl;
+				
 				break;
 
 			case '3':

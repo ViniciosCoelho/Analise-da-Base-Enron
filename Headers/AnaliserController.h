@@ -31,7 +31,7 @@ public:
 	void removeAdjacencia(int i, int j);
 	void imprimeAdjacencias();
 	void setaInformacao(int i, std::string rotulo);
-	int adjacentes(int i); // Ficar esperto com esse método aq. Passo parametros diferentes pra controller e pro grafo em si.
+	int* adjacentes(int i); // Ficar esperto com esse método aq. Passo parametros diferentes pra controller e pro grafo em si.
 	/*
 	Agora é só ir colocando as funções do grafo aq, que dai essa classe delega pro grafo fazer.
 	*/

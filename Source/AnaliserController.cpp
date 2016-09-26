@@ -89,7 +89,7 @@ void AnaliserController::setaInformacao(int i, std::string rotulo)
 	graf->seta_informacao(i, rotulo);
 }
 
-int AnaliserController::adjacentes(int i)
+int* AnaliserController::adjacentes(int i)
 {
-	return graf->adjacentes(i, nullptr);
+	return graf->adjacentes(i);
 }
