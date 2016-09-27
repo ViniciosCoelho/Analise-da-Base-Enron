@@ -155,7 +155,7 @@ void Grafo::imprime_adjacencias(int numAdj, int* adj)
 	std::cout << std::endl;
 }
 
-bool Grafo::existe_vertice(std::vector<int> vetor_vertices, int vert)
+bool Grafo::existe_vertice_visitados(std::vector<int> vetor_vertices, int vert)
 {
 	for (int i = 0; i < vetor_vertices.size(); i++)
 	{
@@ -204,7 +204,7 @@ bool Grafo::depth_search(int X, int Y, int count, std::vector<int> & Visitados)
 	}
 	else
 	{
-		if (!(Grafo::existe_vertice(Visitados, X)))
+		if (!(Grafo::existe_vertice_visitados(Visitados, X)))
 		{
 			Visitados.push_back(X);
 			num_adj = this->numero_adjacentes(X);
@@ -222,29 +222,59 @@ bool Grafo::depth_search(int X, int Y, int count, std::vector<int> & Visitados)
 	
 }
 
-bool Grafo::width_search(int Y, std::vector<int>& Visitados, std::queue<int> Q)
+bool Grafo::breadth_search_iterative(int Y, std::vector<int>& Visitados, std::queue<int> Q)
 {
+	int num_adj;
 	int x;
-	if (Q.empty)
+	bool* visit = new bool[this->num_vertices()];
+	int* adj = nullptr;
+
+	for (int i = 0; i < this->tamanho; i++)
+	{
+		visit[i] = false;
+	}
+
+
+	if (Q.empty())
 	{
 		throw std::exception("destino não existe !!");
 		return false;
 	}
 	else
 	{
-		x = Q.pop;
-		//visite(x);
+		x = Q.front();
+		visit[x] = true;
 	}
 
 	if (x == Y)
 	{
+		Visitados.push_back(x);
 		return true;
 	}
 	else
 	{
-
+		while (!Q.empty())
+		{
+			Visitados.push_back(x);
+			if (x == Y)
+			{
+				return true;
+			}
+			adj = this->adjacentes(x);
+			num_adj = this->numero_adjacentes(x);
+			for (int i = 0; i < num_adj; i++)
+			{
+				if (!visit[adj[i]])
+				{
+					visit[adj[i]] = true;
+					Q.push(adj[i]);
+				}
+			}
+			Q.pop();
+			x = Q.front();
+			
+		}
 	}
-	return false;
 }
 
 Lista * Grafo::vertices_distantes(int distancia)

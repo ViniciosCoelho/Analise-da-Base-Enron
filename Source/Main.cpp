@@ -21,18 +21,8 @@ void main()
 		std::cout << "Processing emails. Please wait..." << std::endl;
 		adjEmails = controller.findAdjEmails();
 		std::cout << "Creating graph. Please wait..." << std::endl;
-//		grafSize = controller.createGraf(adjEmails);	// 1)
-		Grafo* G = new Grafo(7);
-		G->cria_adjacencia(0, 1, 120);
-		G->cria_adjacencia(0, 2, 140);
-		G->cria_adjacencia(1, 3, 145);
-		G->cria_adjacencia(1, 4, 152);
-		G->cria_adjacencia(2, 5, 125);
-		G->cria_adjacencia(2, 6, 512);
+		grafSize = controller.createGraf(adjEmails);	// 1)
 		std::cout << "Graph is now usable!" << std::endl;
-		std::vector<int> V;
-		G->depth_search(0, 7, -1, V);
-		//controller.get_graph()->depth_search(0,4,-1,V);
 		do
 		{
 			int i, j, P;

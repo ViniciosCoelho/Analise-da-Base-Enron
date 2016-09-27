@@ -4,7 +4,7 @@
 #include <iomanip>
 #include <vector>
 #include <queue>
-#include<expeption>
+#include<exception>
 #include "Lista.h"
 
 using node_vertice = std::vector<std::pair<int, std::string>>;
@@ -40,14 +40,15 @@ public:
 	void imprime_adjacencias(int numAdj, int* adj);
 	bool foi_visitado(bool* V, int i);
 	int converte_nome(std::string nome);
-	bool existe_vertice(std::vector<int> vetor_vertices, int vert);
+	bool existe_vertice_visitados(std::vector<int> vetor_vertices, int vert);
+	int get_vertice();
 
 	//funções do Trabalho
 	int num_vertices();		// 2) a.
 	int maior_grau_saida();		// 2) c.
 	int maior_grau_entrada();	// 2) d.
 	bool depth_search(int X, int Y, int count, std::vector<int>& Visitados); // 3)
-	bool width_search(int Y, std::vector<int>& Visitados, std::queue<int> F); // 4)
+	bool breadth_search_iterative(int Y, std::vector<int>& Visitados, std::queue<int> F); // 4)
 	Lista* vertices_distantes(int distancia); // 5)
 
 
