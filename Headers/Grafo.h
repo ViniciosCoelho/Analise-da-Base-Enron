@@ -47,7 +47,7 @@ public:
 	int num_vertices();		// 2) a.
 	int maior_grau_saida();		// 2) c.
 	int maior_grau_entrada();	// 2) d.
-	bool depth_search(int X, int Y, int count, std::vector<int>& Visitados); // 3)
+	bool depth_search(int X, int Y, int & count, std::vector<int>& Visitados); // 3)
 	bool breadth_search_iterative(int Y, std::vector<int>& Visitados, std::queue<int> F); // 4)
 	Lista* vertices_distantes(int distancia); // 5)
 

@@ -186,7 +186,7 @@ int Grafo::maior_grau_entrada()
 
 
 
-bool Grafo::depth_search(int X, int Y, int count, std::vector<int> & Visitados)
+bool Grafo::depth_search(int X, int Y, int & count, std::vector<int> & Visitados)
 {
 	
 	int* adj = nullptr;
