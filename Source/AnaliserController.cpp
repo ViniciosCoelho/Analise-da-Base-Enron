@@ -75,6 +75,8 @@ void AnaliserController::imprimeAdjacencias()
 	graf->imprime_adjacencias();
 }
 
+
+
 void AnaliserController::setaInformacao(int i, std::string rotulo)
 {
 	graf->seta_informacao(i, rotulo);
@@ -107,7 +109,8 @@ std::vector<std::pair<int, int>> AnaliserController::mostEnterGrade()
 
 std::vector<int> AnaliserController::findNodesAtDistance(int vert, int dist)
 {
-	return graf->vertices_distantes(vert, dist);
+	return std::vector<int>();
+	//return graf->vertices_distantes(vert, dist);
 }
 
 std::vector<int> AnaliserController::depth_search(int vert, int dest)

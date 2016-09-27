@@ -212,21 +212,21 @@ bool Grafo::existe_vertice_visitados(std::vector<int> vetor_vertices, int vert)
 	return false;
 }
 
-bool Grafo::depth_search(int X, int Y, int &count, std::vector<int> & Visitados)
+int Grafo::depth_search(int X, int Y, int &count, std::vector<int> & Visitados)
 {
 	int* adj = nullptr;
 	int num_adj;
 
-	count++;
-	if (count > 50)
+	count--;
+	if (count == -1)
 	{
 		Visitados.clear();
-		return false;
+		return 0;
 	}
 	if (X == Y)
 	{
 		Visitados.push_back(X);
-		return true;
+		return X;
 	}
 	else
 	{
@@ -237,13 +237,14 @@ bool Grafo::depth_search(int X, int Y, int &count, std::vector<int> & Visitados)
 			adj = this->adjacentes(X);
 			for (int i = 0; i < num_adj; i++)
 			{
-				if (bool x = depth_search(adj[i], Y, count, Visitados))
+				int x;
+				if ((x = depth_search(adj[i], Y, count, Visitados)) != 0)
 				{
-					return true;
+					return x;
 				}
 			}
 		}
-		return false;
+		return 0;
 	}
 }
 
@@ -298,10 +299,38 @@ bool Grafo::breadth_search_iterative(int Y, std::vector<int>& Visitados, std::qu
 	}
 }
 
-std::vector<int> Grafo::vertices_distantes(int vertice, int distancia)
+std::vector<int> Grafo::pointer_int_to_vector(int * v, int tam)
 {
+	std::vector<int> V;
+	for (int i = 0; i < tam; i++)
+	{
+		V.push_back(v[i]);
+	}
+	return V;
+}
 
-	return std::vector<int>();
+int Grafo::vertices_distantes(int vertice, int distancia, std::vector<int>& distantes)
+{
+	int num_adj, x;
+	std::vector<int> adj;
+	num_adj = Grafo::numero_adjacentes(vertice);
+	adj = Grafo::pointer_int_to_vector(Grafo::adjacentes(vertice), num_adj);
 
+	if (distancia == 0)
+	{
+		distantes.push_back(vertice);
+		return vertice;
+	}
+	
+	while (!adj.empty())
+	{
+		for (int i = 0; i < num_adj; i++)
+		{
+			x = adj.back();
+			Grafo::vertices_distantes(x, distancia - 1, distantes);
+			adj.pop_back();
+		}
+	}
 
+	return vertice;
 }

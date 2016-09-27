@@ -45,6 +45,7 @@ public:
 	void seta_informacao(int i, std::string V);  // atualiza a informação do nó i com o valor V (que deve ser uma string) no grafo G
 	int numero_adjacentes(int i);
 	int *adjacentes(int i);
+	std::vector<int> pointer_int_to_vector(int* v, int tam);
 
 	//Funções auxiliares
 	bool Grafo::existe_vertice_visitados(std::vector<int> vetor_vertices, int vert);
@@ -54,7 +55,7 @@ public:
 	int num_arestas();		// 2) b.
 	std::vector<std::pair<int, int>> maior_grau_saida(); // 2) c.
 	std::vector<std::pair<int, int>> maior_grau_entrada(); // 2) d.
-	bool Grafo::depth_search(int X, int Y, int &count, std::vector<int> & Visitados); // 3)
+	int Grafo::depth_search(int X, int Y, int &count, std::vector<int> & Visitados); // 3)
 	bool Grafo::breadth_search_iterative(int Y, std::vector<int>& Visitados, std::queue<int> Q); // 4)
-	std::vector<int> vertices_distantes(int vertice, int distancia); // 5)
+	int vertices_distantes(int vertice, int distancia, std::vector<int>& distantes); // 5)
 };
