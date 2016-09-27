@@ -12,7 +12,7 @@ private:
 	std::list<std::string> emailPaths;
 	EmailFilter emailF;
 	Grafo *graf;
-
+private:
 	std::vector<std::string> findUniqueEmails(std::list<LineAdjEmails> &adjEmails);
 	AnaliserController();
 public:
@@ -20,10 +20,9 @@ public:
 	~AnaliserController();
 
 	//getters
-	std::list<std::string> get_emailPaths();
+	/*std::list<std::string> get_emailPaths();
 	EmailFilter get_emailfilter();
-	Grafo* get_graph();
-	
+	Grafo* get_graph();*/
 	bool findEmailsPaths(std::string directory);
 	std::list<LineAdjEmails> AnaliserController::findAdjEmails();
 	int createGraf(std::list<LineAdjEmails> adjEmails);
@@ -31,10 +30,16 @@ public:
 	void removeAdjacencia(int i, int j);
 	void imprimeAdjacencias();
 	void setaInformacao(int i, std::string rotulo);
-	int adjacentes(int i); // Ficar esperto com esse método aq. Passo parametros diferentes pra controller e pro grafo em si.
-	/*
-	Agora é só ir colocando as funções do grafo aq, que dai essa classe delega pro grafo fazer.
-	*/
+	int numero_adjacentes(int i); // Ficar esperto com esse método aq. Passo parametros diferentes pra controller e pro grafo em si.
+
+	//Methods for the TDE
+	int numberVert(); // 2) a.
+	int numberArest(); // 2) b.
+	std::vector<std::pair<int, int>> mostExitGrade(); // 2) c.
+	std::vector<std::pair<int, int>> mostEnterGrade(); // 2) d.
+	std::vector<int> findNodesAtDistance(int vert, int dist);
+	std::vector<int> depth_search(int vert, int dest);
+	std::queue<int> width_search(int vert, int dest);
 };
 
 #endif

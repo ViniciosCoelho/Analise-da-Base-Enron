@@ -19,21 +19,6 @@ AnaliserController::~AnaliserController()
 {
 }
 
-std::list<std::string> AnaliserController::get_emailPaths()
-{
-	return this->emailPaths;
-}
-
-EmailFilter AnaliserController::get_emailfilter()
-{
-	return this->emailF;
-}
-
-Grafo* AnaliserController::get_graph()
-{
-	return this->graf;
-}
-
 bool AnaliserController::findEmailsPaths(std::string directory)
 {
 	Filter filter(PathFinder::findPossiblePaths(directory));
@@ -50,14 +35,13 @@ std::list<LineAdjEmails> AnaliserController::findAdjEmails()
 
 int AnaliserController::createGraf(std::list<LineAdjEmails> adjEmails)
 {
+	/*
 	std::vector<std::string> uniqueEmails;
-	
-	uniqueEmails = findUniqueEmails(adjEmails);
-	this->graf = new Grafo(uniqueEmails.size());
-
-	FileWriter::fileWrite(adjEmails); // Just for debuging purposes
 	int From, To;
 
+	uniqueEmails = findUniqueEmails(adjEmails);
+	this->graf = new Grafo(uniqueEmails.size());
+	FileWriter::fileWrite(adjEmails); // Just for debuging purposes
 	for (int i = 0; i < (signed)uniqueEmails.size(); i++)
 		this->graf->seta_informacao(i, uniqueEmails[i]);
 	for (std::list<LineAdjEmails>::iterator it = adjEmails.begin(); it != adjEmails.end(); it++)
@@ -65,8 +49,15 @@ int AnaliserController::createGraf(std::list<LineAdjEmails> adjEmails)
 		From = std::find(uniqueEmails.begin(), uniqueEmails.end(), it->from) - uniqueEmails.begin();
 		To = std::find(uniqueEmails.begin(), uniqueEmails.end(), it->to) - uniqueEmails.begin();
 		this->graf->cria_adjacencia(From, To, it->weight);
-	}		
+	}
 	return uniqueEmails.size();
+	*/
+	this->graf = new Grafo(5);
+	graf->cria_adjacencia(0, 1, 1);
+	graf->cria_adjacencia(0, 2, 2);
+	graf->cria_adjacencia(0, 3, 3);
+	graf->cria_adjacencia(0, 4, 2);
+	return 5;
 }
 
 void AnaliserController::criaAdjacencia(int i, int j, int P)
@@ -89,7 +80,48 @@ void AnaliserController::setaInformacao(int i, std::string rotulo)
 	graf->seta_informacao(i, rotulo);
 }
 
-int AnaliserController::adjacentes(int i)
+int AnaliserController::numero_adjacentes(int i)
 {
-	return graf->adjacentes(i, nullptr);
+	return graf->numero_adjacentes(i);
+}
+
+int AnaliserController::numberVert()
+{
+	return graf->num_vertices();
+}
+
+int AnaliserController::numberArest() 
+{
+	return graf->num_arestas();
+}
+
+std::vector<std::pair<int, int>> AnaliserController::mostExitGrade()
+{
+	return graf->maior_grau_saida();
+}
+
+std::vector<std::pair<int, int>> AnaliserController::mostEnterGrade()
+{
+	return graf->maior_grau_entrada();
+}
+
+std::vector<int> AnaliserController::findNodesAtDistance(int vert, int dist)
+{
+	return graf->vertices_distantes(vert, dist);
+}
+
+std::vector<int> AnaliserController::depth_search(int vert, int dest)
+{
+	std::vector<int> aux;
+	int count = 0;
+	graf->depth_search(vert, dest, count, aux);	
+	return aux;
+}
+
+std::queue<int> AnaliserController::width_search(int vert, int dest)
+{
+	std::queue<int> aux;
+	aux.push(vert);
+	graf->breadth_search_iterative(dest, std::vector<int>(), aux);
+	return aux;
 }
