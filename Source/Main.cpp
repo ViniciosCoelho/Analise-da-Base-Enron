@@ -1,66 +1,3 @@
-<<<<<<< HEAD
-#include <iostream>
-#include <string>
-#include <locale.h>
-#include "Filter.h"
-#include "AnaliserController.h"
-#include "CorrectPath.h"
-
-void main()
-{
-	AnaliserController & controller = AnaliserController::createController(); // It's a singleton.
-
-	setlocale(LC_ALL, "");
-
-
-	if (controller.findEmailsPaths(MAIN_PATH))
-	{
-		std::list<LineAdjEmails> adjEmails;
-		int grafSize;
-		char option;
-
-		std::cout << "Processing emails. Please wait..." << std::endl;
-		adjEmails = controller.findAdjEmails();
-		std::cout << "Creating graph. Please wait..." << std::endl;
-		grafSize = controller.createGraf(adjEmails);	// 1)
-		std::cout << "Graph is now usable!" << std::endl;
-		do
-		{
-			int i, j, P;
-			std::string rotulo;
-			std::cout << "\t1 - Imprime Adjacências" << std::endl
-					<< "\t2 - Número de Adjacentes" << std::endl 
-					<< "\t3 - Sair" << std::endl 
-					<< "Escolha uma opção:" << std::endl;
-			std::cin >> option;
-			switch (option)
-			{
-
-			case '1':
-				std::cout << std::endl;
-				controller.imprimeAdjacencias();
-				std::setprecision(0);
-				break;
-
-			case '2':
-				
-				break;
-
-			case '3':
-				std::cout << "Até logo !" << std::endl;
-				break;
-
-			default:
-				std::cout << "Opção incorreta !" << std::endl;
-				break;
-			}
-		} while (option != '3');
-	}
-	else
-		std::cout << "It was not possible to build the graf. Terminanting operation." << std::endl;
-
-	
-=======
 #include <iostream>
 #include <string>
 #include <locale.h>
@@ -92,16 +29,16 @@ void main()
 			std::vector<int> vecNodePrinter;
 			std::queue<int> auxPrinter;
 			std::cout << "\t1 - Imprime Adjacências" << std::endl
-					<< "\t2 - Número de Adjacentes" << std::endl 
-					<< "\t3 - Número de Vértices" << std::endl 
-					<< "\t4 - Número de Arestas" << std::endl
-					<< "\t5 - Maior Grau de Saída" << std::endl
-					<< "\t6 - Maior Grau de Entrada" << std::endl
-					<< "\t7 - Busca em Profundidade" << std::endl
-					<< "\t8 - Busca em Largura" << std::endl
-					<< "\t9 - Nós a uma distância de N arestas de um determinado Nó" << std::endl
-					<< "\t0 - Sair" << std::endl
-					<< "Escolha uma opção:" << std::endl;
+				<< "\t2 - Número de Adjacentes" << std::endl
+				<< "\t3 - Número de Vértices" << std::endl
+				<< "\t4 - Número de Arestas" << std::endl
+				<< "\t5 - Maior Grau de Saída" << std::endl
+				<< "\t6 - Maior Grau de Entrada" << std::endl
+				<< "\t7 - Busca em Profundidade" << std::endl
+				<< "\t8 - Busca em Largura" << std::endl
+				<< "\t9 - Nós a uma distância de N arestas de um determinado Nó" << std::endl
+				<< "\t0 - Sair" << std::endl
+				<< "Escolha uma opção:" << std::endl;
 			std::cin >> option;
 			switch (option)
 			{
@@ -173,7 +110,7 @@ void main()
 				else
 					std::cout << "Não existe caminho..." << std::endl;
 				break;
-				
+
 			case '8':
 				std::cout << "Qual o Nó origem:" << std::endl;
 				std::cin >> i;
@@ -217,7 +154,7 @@ void main()
 					std::cout << "Opção incorreta. Escolha outra:" << std::endl;
 					std::cin >> j;
 				}
-				vecNodePrinter=controller.findNodesAtDistance(i, j);
+				vecNodePrinter = controller.findNodesAtDistance(i, j);
 				std::cout << "Os Nós adjacêntes ao Nó origem a uma distância de " << j << " Arestas são:" << std::endl;
 				if (!vecNodePrinter.empty())
 				{
@@ -230,7 +167,7 @@ void main()
 				break;
 
 			case 'a':
-				
+
 				break;
 
 			case '0':
@@ -245,5 +182,4 @@ void main()
 	}
 	else
 		std::cout << "It was not possible to build the graf. Terminanting operation." << std::endl;
->>>>>>> refs/remotes/ViniciosCoelho/master
 }

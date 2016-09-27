@@ -5,7 +5,7 @@ std::list<std::string> PathFinder::findPossiblePaths(std::string directory)
 	DIR *dir;
 	struct dirent *dirEnt;
 	std::list<std::string> possiblePaths;
-	
+
 	dir = opendir(directory.c_str());
 	if (dir != NULL)
 	{

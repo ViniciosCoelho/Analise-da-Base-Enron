@@ -46,101 +46,101 @@ No *No::insere_depois(int elemento)
 	return p;
 }
 
- No *No::insere_depois(int elemento, int valor)
+No *No::insere_depois(int elemento, int valor)
 {
 	No * p = new No(elemento, valor);
 
-	this->proximo=p;
+	this->proximo = p;
 
 	return p;
 }
-  
- void No::mostra_nos()
- {
-	 No * p = this;
 
-	 while (p != NULL)
-	 {
-		 cout << " " << p->vertice;
-		 p = p->proximo;
-	 }
+void No::mostra_nos()
+{
+	No * p = this;
 
-	 cout << endl;
- }
+	while (p != NULL)
+	{
+		cout << " " << p->vertice;
+		p = p->proximo;
+	}
 
- int No::retira_depois()
- {
-	 int aux;
-
-	 if (this->proximo == NULL)
-	 {
-
-		 throw std::runtime_error("Não há nó para ser retirado. Retorno setado em 0");
-		 return 0;
-	 }
-	 else
-	 {
-		 aux = this->proximo->vertice;
-		 this->proximo = this->proximo->proximo;
-
-		 return aux;
-	 }
- }
-
- No * No::retira_primeiro_no()
- {
-	 No * p;
-
-	 p = this->proximo;
-
-	 return p;
- }
-
- No *No::retira_ultimo_no()
- {
-	 No * p, * q;
-
-	 p = this;
-
-	 while (p->proximo!=NULL)
-	 {
-		 q = p;
-		 p = p->proximo;
-	 }
-
-	 q = p->proximo;
-
-	 return q;
- }
-
- void No::insere_ordenado_no(int elemento, int valor)
- {
-	 No *p, *q;
-		
-	 p = this;
-	 q = this;
-	 p = p->proximo;
-
-	 while(elemento > p->vertice)
-	 {
-		 q = p;
-		 p = p->proximo;
-	 }
-	 
-	 q->proximo = q->insere_depois(elemento, valor);
-	 q->proximo->proximo=p;
+	cout << endl;
 }
 
- Lista::Lista()
- {
-	 this->primeiro = this->ultimo = NULL;
- }
+int No::retira_depois()
+{
+	int aux;
 
- Lista::~Lista()
- {
- }
+	if (this->proximo == NULL)
+	{
 
- bool Lista::vazia()
+		throw std::runtime_error("Não há nó para ser retirado. Retorno setado em 0");
+		return 0;
+	}
+	else
+	{
+		aux = this->proximo->vertice;
+		this->proximo = this->proximo->proximo;
+
+		return aux;
+	}
+}
+
+No * No::retira_primeiro_no()
+{
+	No * p;
+
+	p = this->proximo;
+
+	return p;
+}
+
+No *No::retira_ultimo_no()
+{
+	No * p, *q;
+
+	p = this;
+
+	while (p->proximo != NULL)
+	{
+		q = p;
+		p = p->proximo;
+	}
+
+	q = p->proximo;
+
+	return q;
+}
+
+void No::insere_ordenado_no(int elemento, int valor)
+{
+	No *p, *q;
+
+	p = this;
+	q = this;
+	p = p->proximo;
+
+	while (elemento > p->vertice)
+	{
+		q = p;
+		p = p->proximo;
+	}
+
+	q->proximo = q->insere_depois(elemento, valor);
+	q->proximo->proximo = p;
+}
+
+Lista::Lista()
+{
+	this->primeiro = this->ultimo = NULL;
+}
+
+Lista::~Lista()
+{
+}
+
+bool Lista::vazia()
 {
 	if (this->primeiro == NULL)
 	{
@@ -152,20 +152,20 @@ No *No::insere_depois(int elemento)
 	}
 }
 
- bool Lista::busca(int elemento)
- {
-	 No *p = this->primeiro;
+bool Lista::busca(int elemento)
+{
+	No *p = this->primeiro;
 
-	 while (elemento != p->retorna_vertice())
-	 {
-		 if (p->retorna_vertice() > elemento || p == this->ultimo)
-			 return false;
+	while (elemento != p->retorna_vertice())
+	{
+		if (p->retorna_vertice() > elemento || p == this->ultimo)
+			return false;
 
-		 p = p->retorna_proximo();
-	 }
+		p = p->retorna_proximo();
+	}
 
-	 return true;
- }
+	return true;
+}
 
 int Lista::ultimo_elemento()
 {

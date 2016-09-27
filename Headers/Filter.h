@@ -7,7 +7,7 @@ class Filter
 {
 private:
 	std::list<std::string> paths;
-	
+
 	void addPaths(std::list<std::string> aux);
 public:
 	Filter(std::list<std::string> initialPaths);
