@@ -246,6 +246,7 @@ int Grafo::depth_search(int X, int Y, int &count, std::vector<int> & Visitados)
 		}
 		return 0;
 	}
+	return false;
 }
 
 bool Grafo::breadth_search_iterative(int Y, std::vector<int>& Visitados, std::queue<int> Q)
