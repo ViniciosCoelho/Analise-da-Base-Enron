@@ -28,8 +28,8 @@ void main()
 			std::vector<std::pair<int, int>> vecPrinter;
 			std::vector<int> vecNodePrinter;
 			std::queue<int> auxPrinter;
-			std::cout 
-				<< "\t1 - Imprime Adjacências" << std::endl
+			std::stack<int> stackVert;
+			std::cout << "\t1 - Imprime Adjacências" << std::endl
 				<< "\t2 - Número de Adjacentes" << std::endl
 				<< "\t3 - Número de Vértices" << std::endl
 				<< "\t4 - Número de Arestas" << std::endl
@@ -38,6 +38,7 @@ void main()
 				<< "\t7 - Busca em Profundidade" << std::endl
 				<< "\t8 - Busca em Largura" << std::endl
 				<< "\t9 - Nós a uma distância de N arestas de um determinado Nó" << std::endl
+				<< "\tA - Maior dependência entre dois Vertices" << std::endl
 				<< "\t0 - Sair" << std::endl
 				<< "Escolha uma opção:" << std::endl;
 			std::cin >> option;
@@ -127,17 +128,15 @@ void main()
 					std::cout << "Opção incorreta. Escolha outra:" << std::endl;
 					std::cin >> j;
 				}
-				auxPrinter = controller.width_search(i, j);
-				if (!auxPrinter.empty())
+				vecNodePrinter = controller.width_search(i, j);
+				if (!vecNodePrinter.empty())
 				{
-					while (!auxPrinter.empty())
-					{
-						std::cout << auxPrinter.front() << " ";
-						auxPrinter.pop();
-					}
+					for (i = 0; i < vecNodePrinter.size(); i++)
+						std::cout << vecNodePrinter[i] << " ";
+					std::cout << std::endl;
 				}
 				else
-					std::cout << "Não existe adjacência!" << std::endl;
+					std::cout << "Não existe caminho..." << std::endl;
 				break;
 
 			case '9':
@@ -166,9 +165,38 @@ void main()
 					std::cout << "Nenhum" << std::endl;
 				std::cout << std::endl;
 				break;
-
 			case 'a':
-
+			case 'A':
+				std::cout << "De qual Nó você quer partir:" << std::endl;
+				std::cin >> i;
+				while (i < 0 || i >= grafSize)
+				{
+					std::cout << "Opção incorreta. Escolha outra:" << std::endl;
+					std::cin >> i;
+				}
+				std::cout << "A qual nó você quer chegar:" << std::endl;
+				std::cin >> j;
+				while (j <= 0)
+				{
+					std::cout << "Opção incorreta. Escolha outra:" << std::endl;
+					std::cin >> j;
+				}
+				stackVert = controller.bestPath(i, j);
+				if (!stackVert.empty())
+				{
+					std::cout << "A maior dependencia entre " << i << " e " << j << " vale: " << stackVert.top() << std::endl;
+					stackVert.pop();
+					i = 0;
+					while (!stackVert.empty())
+					{
+						std::cout << i + 1 << "º) " << stackVert.top() << std::endl;
+						stackVert.pop();
+						i++;
+					}
+				}
+				else
+					std::cout << "Não existe melhor caminho" << std::endl;
+				std::cout << std::endl;
 				break;
 
 			case '0':

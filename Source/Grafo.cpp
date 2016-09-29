@@ -294,7 +294,10 @@ bool Grafo::breadth_search_iterative(int Y, std::vector<int>& Visitados, std::qu
 				}
 			}
 			Q.pop();
-			x = Q.front();
+			if (!Q.empty())
+			{
+				x = Q.front();
+			}
 		}
 	}
 }

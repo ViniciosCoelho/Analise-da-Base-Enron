@@ -111,16 +111,17 @@ std::vector<int> AnaliserController::findNodesAtDistance(int vert, int dist)
 std::vector<int> AnaliserController::depth_search(int vert, int dest)
 {
 	std::vector<int> aux;
-	int count = 0;
+	int count = 50;
 	graf->depth_search(vert, dest, count, aux);
 	return aux;
 }
 
-std::queue<int> AnaliserController::width_search(int vert, int dest)
+std::vector<int> AnaliserController::width_search(int vert, int dest)
 {
-	std::queue<int> aux;
-	aux.push(vert);
-	graf->breadth_search_iterative(dest, std::vector<int>(), aux);
+	std::queue<int> fila;
+	fila.push(vert);
+	std::vector<int> aux;
+	graf->breadth_search_iterative(dest, aux, fila);
 	return aux;
 }
 

@@ -39,7 +39,7 @@ public:
 	std::vector<std::pair<int, int>> mostEnterGrade(); // 2) d.
 	std::vector<int> findNodesAtDistance(int vert, int dist);
 	std::vector<int> depth_search(int vert, int dest);
-	std::queue<int> width_search(int vert, int dest);
+	std::vector<int> width_search(int vert, int dest);
 	std::stack<int> bestPath(int vert, int dest);
 };
 
