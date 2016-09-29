@@ -35,7 +35,6 @@ std::list<LineAdjEmails> AnaliserController::findAdjEmails()
 
 int AnaliserController::createGraf(std::list<LineAdjEmails> adjEmails)
 {
-	/*
 	std::vector<std::string> uniqueEmails;
 	int From, To;
 
@@ -43,21 +42,16 @@ int AnaliserController::createGraf(std::list<LineAdjEmails> adjEmails)
 	this->graf = new Grafo(uniqueEmails.size());
 	FileWriter::fileWrite(adjEmails); // Just for debuging purposes
 	for (int i = 0; i < (signed)uniqueEmails.size(); i++)
-	this->graf->seta_informacao(i, uniqueEmails[i]);
+		this->graf->seta_informacao(i, uniqueEmails[i]);
 	for (std::list<LineAdjEmails>::iterator it = adjEmails.begin(); it != adjEmails.end(); it++)
 	{
-	From = std::find(uniqueEmails.begin(), uniqueEmails.end(), it->from) - uniqueEmails.begin();
-	To = std::find(uniqueEmails.begin(), uniqueEmails.end(), it->to) - uniqueEmails.begin();
-	this->graf->cria_adjacencia(From, To, it->weight);
+		From = std::find(uniqueEmails.begin(), uniqueEmails.end(), it->from) - uniqueEmails.begin();
+		To = std::find(uniqueEmails.begin(), uniqueEmails.end(), it->to) - uniqueEmails.begin();
+		this->graf->cria_adjacencia(From, To, it->weight);
 	}
+	graf->createWarshell();
 	return uniqueEmails.size();
-	*/
-	this->graf = new Grafo(5);
-	graf->cria_adjacencia(0, 1, 1);
-	graf->cria_adjacencia(0, 2, 2);
-	graf->cria_adjacencia(0, 3, 3);
-	graf->cria_adjacencia(0, 4, 2);
-	return 5;
+	
 }
 
 void AnaliserController::criaAdjacencia(int i, int j, int P)
@@ -109,8 +103,9 @@ std::vector<std::pair<int, int>> AnaliserController::mostEnterGrade()
 
 std::vector<int> AnaliserController::findNodesAtDistance(int vert, int dist)
 {
-	return std::vector<int>();
-	//return graf->vertices_distantes(vert, dist);
+	std::vector<int> aux;
+	graf->vertices_distantes(vert, dist, aux);
+	return aux;
 }
 
 std::vector<int> AnaliserController::depth_search(int vert, int dest)
@@ -127,4 +122,9 @@ std::queue<int> AnaliserController::width_search(int vert, int dest)
 	aux.push(vert);
 	graf->breadth_search_iterative(dest, std::vector<int>(), aux);
 	return aux;
+}
+
+std::stack<int> AnaliserController::bestPath(int vert, int dest)
+{
+	return graf->dijkstra(vert, dest);
 }

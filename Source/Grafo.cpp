@@ -334,3 +334,112 @@ int Grafo::vertices_distantes(int vertice, int distancia, std::vector<int>& dist
 
 	return vertice;
 }
+
+bool Grafo::warshellPosition(int ini, int dest)
+{
+	if (matrizBin[ini][dest] == true)
+		return true;
+	else
+		return false;
+}
+
+void Grafo::createWarshell()
+{
+	matrizBin = new bool*[tamanho];
+	for (int i = 0; i < tamanho; i++)
+	{
+		matrizBin[i] = new bool[tamanho];
+		if (lista[i].vazia())
+		{
+			for (int j = 0; j < tamanho; j++)
+				matrizBin[i][j] = false;
+		}
+		else
+		{
+			for (int j = 0; j < tamanho; j++)
+			{
+				if (!lista[i].busca(j))
+					matrizBin[i][j] = false;
+				else
+					matrizBin[i][j] = true;
+			}
+		}
+	}
+	for (int k = 0; k < tamanho; k++)
+	{
+		for (int i = 0; i < tamanho; i++)
+		{
+			if (matrizBin[i][k] == 1)
+			{
+				for (int j = 0; j < tamanho; j++)
+					matrizBin[i][j] = matrizBin[i][j] | matrizBin[k][j];
+			}
+		}
+	}
+}
+
+std::stack<int> Grafo::dijkstra(int inicio, int destino)
+{
+	std::stack<int> melhorCaminho;
+	if (warshellPosition(inicio, destino))
+	{
+		int atual = inicio, i;
+		float *distancia = new float[tamanho];
+		float distAtual;
+		int *caminho = new int[tamanho];
+		bool *membro = new bool[tamanho];
+
+		for (i = 0; i < tamanho; i++)
+		{
+			if (i == inicio)
+			{
+				membro[i] = true;
+				distancia[i] = 0;
+				caminho[i] = NONE;
+			}
+			else
+			{
+				membro[i] = false;
+				distancia[i] = INFINITO;
+			}
+		}
+		while (atual != destino)
+		{
+			if (!lista[atual].vazia())
+			{
+				for (i = 0; i < tamanho; i++)
+				{
+					if (lista[atual].busca(i))
+					{
+						if (1.0 / (lista[atual].retornaPeso(i) + distancia[atual]) < 1.0 / distancia[i])
+						{
+							distancia[i] = lista[atual].retornaPeso(i) + distancia[atual];
+							caminho[i] = atual;
+						}
+					}
+				}
+			}
+			distAtual = INFINITO;
+			for (i = 0; i < tamanho; i++)
+			{
+				//if (distancia[i] >= 1.0)
+				{
+					if (membro[i] == false && distancia[i] > distAtual /*&& i != inicio*/)
+					{
+						atual = i;
+						distAtual = distancia[i];
+					}
+				}
+			}
+			membro[atual] = true;
+		}
+		int aux = atual;
+		melhorCaminho.push(destino);
+		do
+		{
+			melhorCaminho.push(caminho[atual]);
+		} while ((atual = caminho[atual]) != inicio);
+		melhorCaminho.push(distancia[aux]);
+	}
+	return melhorCaminho;
+}

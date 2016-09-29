@@ -20,29 +20,6 @@ void main()
 		adjEmails = controller.findAdjEmails();
 		std::cout << "Creating graph. Please wait..." << std::endl;
 		grafSize = controller.createGraf(adjEmails);
-		Grafo* G = new Grafo(20);
-		G->cria_adjacencia(0, 1, 242);
-		G->cria_adjacencia(0, 2, 242);
-		G->cria_adjacencia(0, 3, 242);
-		G->cria_adjacencia(0, 4, 242);
-		G->cria_adjacencia(4, 5, 242);
-		G->cria_adjacencia(4, 19, 242);
-		G->cria_adjacencia(5, 15, 242);
-		G->cria_adjacencia(5, 14, 242);
-		G->cria_adjacencia(3, 13, 242);
-		G->cria_adjacencia(13, 16, 242);
-		G->cria_adjacencia(13, 17, 242);
-		G->cria_adjacencia(13, 18, 242);
-		G->cria_adjacencia(2, 9, 242);
-		G->cria_adjacencia(2, 8, 242);
-		G->cria_adjacencia(8, 11, 242);
-		G->cria_adjacencia(8, 12, 242);
-		G->cria_adjacencia(9, 10, 242);
-		G->cria_adjacencia(1, 7, 242);
-		std::vector<int> V;
-		int x = 50;
-		int* p = &x;
-		G->vertices_distantes(0,0,V);
 		std::cout << "Graph is now usable!" << std::endl;
 		do
 		{
@@ -51,7 +28,8 @@ void main()
 			std::vector<std::pair<int, int>> vecPrinter;
 			std::vector<int> vecNodePrinter;
 			std::queue<int> auxPrinter;
-			std::cout << "\t1 - Imprime Adjacências" << std::endl
+			std::cout 
+				<< "\t1 - Imprime Adjacências" << std::endl
 				<< "\t2 - Número de Adjacentes" << std::endl
 				<< "\t3 - Número de Vértices" << std::endl
 				<< "\t4 - Número de Arestas" << std::endl

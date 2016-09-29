@@ -6,6 +6,10 @@
 #include <queue>
 #include <exception>
 #include "Lista.h"
+#include <stack>
+
+#define INFINITO 1/10
+#define NONE -1
 
 struct linhaGrau
 {
@@ -31,10 +35,10 @@ private:
 	int tamanho;
 	Lista *lista;
 	Vertice *vertices;
-private:
-	bool **geraMatrizBinaria();
-	template<typename type>type **geraMatrizTam(type elemento);
-	int **matrizCaminhosPossiveis(int dist);
+	bool **matrizBin;
+
+	bool warshellPosition(int ini, int dest);
+
 public:
 	Grafo(int numVert);
 	~Grafo();
@@ -45,9 +49,9 @@ public:
 	void seta_informacao(int i, std::string V);  // atualiza a informação do nó i com o valor V (que deve ser uma string) no grafo G
 	int numero_adjacentes(int i);
 	int *adjacentes(int i);
-	std::vector<int> pointer_int_to_vector(int* v, int tam);
 
-	//Funções auxiliares
+	//auxiliares
+	std::vector<int> pointer_int_to_vector(int* v, int tam);
 	bool Grafo::existe_vertice_visitados(std::vector<int> vetor_vertices, int vert);
 
 	//funções do Trabalho
@@ -58,4 +62,6 @@ public:
 	int Grafo::depth_search(int X, int Y, int &count, std::vector<int> & Visitados); // 3)
 	bool Grafo::breadth_search_iterative(int Y, std::vector<int>& Visitados, std::queue<int> Q); // 4)
 	int vertices_distantes(int vertice, int distancia, std::vector<int>& distantes); // 5)
+	void createWarshell();
+	std::stack<int> dijkstra(int inicio, int destino);
 };

@@ -30,9 +30,9 @@ public:
 	void removeAdjacencia(int i, int j);
 	void imprimeAdjacencias();
 	void setaInformacao(int i, std::string rotulo);
-	int numero_adjacentes(int i); // Ficar esperto com esse método aq. Passo parametros diferentes pra controller e pro grafo em si.
+	int numero_adjacentes(int i); 
 
-								  //Methods for the TDE
+	
 	int numberVert(); // 2) a.
 	int numberArest(); // 2) b.
 	std::vector<std::pair<int, int>> mostExitGrade(); // 2) c.
@@ -40,6 +40,7 @@ public:
 	std::vector<int> findNodesAtDistance(int vert, int dist);
 	std::vector<int> depth_search(int vert, int dest);
 	std::queue<int> width_search(int vert, int dest);
+	std::stack<int> bestPath(int vert, int dest);
 };
 
 #endif
